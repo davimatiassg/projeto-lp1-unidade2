@@ -2,6 +2,7 @@
 #define PESSOA_HPP
 
 #include <string>
+#include <iostream>
 #include "util.hpp"
 
 
@@ -10,8 +11,8 @@ class Pessoa {
 private:
     std::string nome;
     std::string cpf;
-    Data dataNascimento;
-    Endereco enderecoPessoal;
+    util::Data dataNascimento;
+    util::Endereco enderecoPessoal;
     std::string estadoCivil;
     int qtdFilhos;
 
@@ -19,23 +20,27 @@ public:
 	// Construtores
     Pessoa();
 
-    Pessoa(std::string, std::string, Data, Endereco, std::string, int);
+    Pessoa(std::string, std::string, util::Data, util::Endereco, std::string, int);
 
 
     // Getters e Setters
     std::string getNome();
     std::string getCPF();
-    Data getDataNascimento();
-    Endereco getEnderecoPessoal();
+    util::Data getDataNascimento();
+    util::Endereco getEnderecoPessoal();
     std::string getEstadoCivil();
     int getQtdFilhos();
 
     void setNome(std::string);
     void setCPF(std::string);
-    void setDataNascimento(Data);
-    void setEnderecoPessoal(Endereco);
+    void setDataNascimento(util::Data);
+    void setEnderecoPessoal(util::Endereco);
     void setEstadoCivil(std::string);
     void setQtdFilhos(int);
+
+
+    //Print
+    void imprimirPessoa();
 };
 
 #endif

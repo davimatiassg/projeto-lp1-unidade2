@@ -1,6 +1,9 @@
 #ifndef EMPRESA_HPP
 #define EMPRESA_HPP
 
+#include <fstream>
+#include <sstream>
+#include <iostream>
 #include <string>
 #include <vector>
 #include "util.hpp"
@@ -9,6 +12,7 @@
 #include "Asg.hpp"
 #include "Vendedor.hpp"
 #include "Gerente.hpp"
+#include "Empresa.hpp"
 
 using namespace std;
 
@@ -79,13 +83,13 @@ public:
 
     void imprimirDono();
 
-    void buscarFuncionario(int);
+    void buscarFuncionario(std::string );
 
-    void calcularSalarioFuncionario(int);
+    void calcularSalarioFuncionario(std::string );
 
     void calcularTodoOsSalarios();
 
-    void calcularRecisaoFuncionario(int);
+    void calcularRecisaoFuncionario(std::string );
 
     void calcularRecisaoTodosFuncionarios();
 };

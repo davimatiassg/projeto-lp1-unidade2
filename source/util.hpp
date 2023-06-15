@@ -2,14 +2,21 @@
 #define UTIL_H
 
 #include <string>
+#include <sstream>
 
-struct Data {
-    int ano, mes, dia;
-};
+namespace util{
+    
+    struct Data {
+        int ano, mes, dia;
+    };
 
-struct Endereco {
-    std::string cidade, bairro, rua, cep;
-    int numero;
-};
+    struct Endereco {
+        std::string cidade, bairro, rua, cep;
+        int numero;
+    };
+    std::string formatarData(Data);
+    
+    std::string formatarEndereco(Endereco);
+}
 
 #endif

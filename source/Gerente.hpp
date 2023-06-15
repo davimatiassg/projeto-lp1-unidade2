@@ -1,8 +1,8 @@
 #ifndef GERENTE_HPP
 #define GERENTE_HPP
 
+#include <iostream>
 #include <string>
-#include "util.hpp"
 #include "Pessoa.hpp"
 #include "Funcionario.hpp"
 
@@ -14,16 +14,18 @@ private:
 public:
     Gerente();
 
-    Gerente(std::string, std::string, Data, Endereco, std::string, int, float, std::string, Data, float);
+    Gerente(std::string, std::string, util::Data, util::Endereco, std::string, int, float, std::string, util::Data, float);
 
     // Getters e Setters
     float getParticipacaoLucros() const;
 
     void setParticipacaoLucros(float);
 
-    float calcularSalario(int diasFaltas) override;
+    float calcularSalario() override;
 
-    float calcularRecisao(Data desligamento) override;
+    float calcularRecisao(util::Data) override;
+
+    void imprimirGerente();
 };
 
 #endif

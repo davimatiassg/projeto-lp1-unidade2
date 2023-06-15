@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "util.hpp"
 #include "Pessoa.hpp"
 #include "Funcionario.hpp"
 #include "Vendedor.hpp"

@@ -2,7 +2,7 @@
 #define VENDEDOR_HPP
 
 #include <string>
-#include "util.hpp"
+#include <iostream>
 #include "Pessoa.hpp"
 #include "Funcionario.hpp"
 
@@ -14,16 +14,18 @@ private:
 public:
     Vendedor();
 
-    Vendedor(std::string, std::string, Data, Endereco, std::string, int, float, std::string, Data, char);
+    Vendedor(std::string, std::string, util::Data, util::Endereco, std::string, int, float, std::string, util::Data, char);
 
     // Getters e Setters
     char getTipoVendedor() const;
 
     void setTipoVendedor(char);
 
-    float calcularSalario(int) override;
+    float calcularSalario() override;
 
-    float calcularRecisao(Data) override;
+    float calcularRecisao(util::Data) override;
+
+    void imprimirVendedor();
 };
 
 #endif

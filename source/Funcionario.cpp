@@ -1,10 +1,20 @@
 #include <string>
+#include <iostream>
 #include "Funcionario.hpp"
+#include "util.hpp"
 
 float Funcionario::getSalario() { return salario; }
 std::string Funcionario::getMatricula() { return matricula; }
-Data Funcionario::getIngressoEmpresa() { return ingressoEmpresa; }
+util::Data Funcionario::getIngressoEmpresa() { return ingressoEmpresa; }
+int Funcionario::getNumeroFaltas() { return numeroFaltas; }
 
 void Funcionario::setSalario(float salario) { this->salario = salario; }
 void Funcionario::setMatricula(std::string matricula) { this->matricula = matricula; }
-void Funcionario::setIngressoEmpresa(Data ingressoEmpresa) { this->ingressoEmpresa = ingressoEmpresa; }
+void Funcionario::setIngressoEmpresa(util::Data ingressoEmpresa) { this->ingressoEmpresa = ingressoEmpresa; }
+void Funcionario::setNumeroFaltas(int numeroFaltas) { this->numeroFaltas = numeroFaltas; }
+
+void Funcionario::imprimirFuncionario()
+{
+	std::cout<<"Matrícula: " <<matricula <<"\nData de ingresso: "<< util::formatarData(ingressoEmpresa);
+	std::cout<<"\nSalário: "<< salario << "\nFaltas:" << numeroFaltas << ".\n";
+}

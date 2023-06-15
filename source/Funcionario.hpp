@@ -2,6 +2,7 @@
 #define FUNCIONARIO_HPP
 
 #include <string>
+#include <iostream>
 #include "util.hpp"
 
 // Declaração de funcionário (abstrato):
@@ -9,20 +10,25 @@ class Funcionario {
 private:
     float salario;
     std::string matricula;
-    Data ingressoEmpresa;
+    util::Data ingressoEmpresa;
+    int numeroFaltas = 0;
 
 public:
     // Getters e Setters
     float getSalario();
     std::string getMatricula();
-    Data getIngressoEmpresa();
+    util::Data getIngressoEmpresa();
+    int getNumeroFaltas();
 
-    void setSalario(float salario);
-    void setMatricula(std::string matricula);
-    void setIngressoEmpresa(Data ingressoEmpresa);
+    void setSalario(float);
+    void setMatricula(std::string);
+    void setIngressoEmpresa(util::Data);
+    void setNumeroFaltas(int);
 
-    virtual float calcularSalario(int diasFaltas) = 0;
-    virtual float calcularRecisao(Data desligamento) = 0;
+    virtual float calcularSalario() = 0;
+    virtual float calcularRecisao(util::Data) = 0;
+
+    void imprimirFuncionario();
 };
 
 #endif

@@ -1,7 +1,8 @@
 #ifndef ASG_HPP
 #define ASG_HPP
+
+#include <iostream>
 #include <string>
-#include "util.hpp"
 #include "Pessoa.hpp"
 #include "Funcionario.hpp"
 
@@ -13,15 +14,17 @@ private:
 public:
     Asg();
 
-    Asg(std::string, std::string, Data, Endereco, std::string, int, float, std::string, Data, float);
+    Asg(std::string, std::string, util::Data, util::Endereco, std::string, int, float, std::string, util::Data, float);
 
     // Getters e Setters
     float getAdicionalInsalubridade() const;
 
     void setAdicionalInsalubridade(float);
 
-    float calcularSalario(int) override;
-    float calcularRecisao(Data) override;
+    float calcularSalario() override;
+    float calcularRecisao(util::Data) override;
+
+    void imprimirAsg();
 };
 
 #endif
