@@ -1,8 +1,8 @@
 #include <string>
 #include <iostream>
-#include "Pessoa.hpp"
-#include "Funcionario.hpp"
-#include "Asg.hpp"
+#include "include\Pessoa.hpp"
+#include "include\Funcionario.hpp"
+#include "include\Asg.hpp"
 
 //Implementação da classe Asg
 Asg::Asg() {};
@@ -30,7 +30,7 @@ float Asg::calcularRecisao(util::Data desligamento){
     util::Data ingresso = getIngressoEmpresa();
     int in = ingresso.ano*365 + ingresso.mes*30 + ingresso.dia;
     int ds = desligamento.ano*365 + desligamento.mes*30 + desligamento.dia;
-    return getSalario() * (int)((in-ds)/365);
+    return getSalario() * (int)((ds-in)/365);
 }
 
 

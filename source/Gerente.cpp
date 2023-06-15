@@ -1,8 +1,8 @@
 #include <string>
 #include <iostream>
-#include "Gerente.hpp"
-#include "Pessoa.hpp"
-#include "Funcionario.hpp"
+#include "include\Gerente.hpp"
+#include "include\Pessoa.hpp"
+#include "include\Funcionario.hpp"
 
 // Implementação da classe concreta Vendedor
 Gerente::Gerente() {};
@@ -32,12 +32,12 @@ float Gerente::calcularRecisao(util::Data desligamento) {
     util::Data ingresso = getIngressoEmpresa();
     int in = ingresso.ano*365 + ingresso.mes*30 + ingresso.dia;
     int ds = desligamento.ano*365 + desligamento.mes*30 + desligamento.dia;
-    return getSalario() * (int)((in-ds)/365);
+    return getSalario() * (int)((ds-in)/365);
 }
 
 void Gerente::imprimirGerente()
 {
     imprimirPessoa();
     imprimirFuncionario();
-    std::cout<<"Participacao nos Lucros " << getParticipacaoLucros() <<std::endl;
+    std::cout<<"Participacao nos Lucros: " << getParticipacaoLucros() <<std::endl<<std::endl;
 }

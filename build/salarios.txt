@@ -1,0 +1,9 @@
+Funcionario: Gustavo Luiz de Souza; Funçao: Gerente; Salario: 3100 Reais.
+Funcionario: Luiz de Souza; Funçao: Vendedor; Salario: 1750 Reais.
+Funcionario: Suziane Maria; Funçao: Vendedor; Salario: 2012.5 Reais.
+Funcionario: Alexandra Gonçalve Dias; Funçao: Vendedor; Salario: 1517.5 Reais.
+Funcionario: Guilherme Borba Dias; Funçao: Vendedor; Salario: 1875 Reais.
+Funcionario: Paulo Herculano de Souza; Funçao: Vendedor; Salario: 1750 Reais.
+Funcionario: Pedro de Araujo; Funçao: ASG; Salario: 0 Reais.
+Funcionario: Jorge Linhares; Funçao: ASG; Salario: 1586 Reais.
+Funcionario: Antonio Augusto de Souza Filho; Funçao: ASG; Salario: 100 Reais.

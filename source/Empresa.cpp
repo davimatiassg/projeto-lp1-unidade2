@@ -3,20 +3,20 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "util.hpp"
-#include "Pessoa.hpp"
-#include "Funcionario.hpp"
-#include "Asg.hpp"
-#include "Vendedor.hpp"
-#include "Gerente.hpp"
-#include "Empresa.hpp"
+#include "include\util.hpp"
+#include "include\Pessoa.hpp"
+#include "include\Funcionario.hpp"
+#include "include\Asg.hpp"
+#include "include\Vendedor.hpp"
+#include "include\Gerente.hpp"
+#include "include\Empresa.hpp"
 
 using namespace std;
 
 
-//Variável global que armazena a data de hoje
+//Variavel global que armazena a data de hoje
 
-util::Data today{2023, 6, 15}; 
+
 
 
 Empresa::Empresa() {};
@@ -67,7 +67,7 @@ void Empresa::carregarFuncoes() {
             std::string nomeFuncao;
             iss >> nomeFuncao;
 
-            // Chamar cada função pelo nome:
+            // Chamar cada funçao pelo nome:
             if (nomeFuncao == "carregarEmpresa()") {
                 carregarEmpresa();
             } else if (nomeFuncao == "carregarAsg()") {
@@ -90,16 +90,11 @@ void Empresa::carregarFuncoes() {
 
             } else if (nomeFuncao == "calcularTodoOsSalarios()") {
                 calcularTodoOsSalarios();
-            } else if (nomeFuncao == "calcularRecisaoTodosFuncionarios()") {
-                calcularRecisaoTodosFuncionarios();
             } else if (nomeFuncao == "buscarFuncionario()") {
-                // Tentar ler a matrícula do Funcionário 
+                // Tentar ler a matricula do Funcionario 
                 try{
                     std::getline(arquivo, linha);
-                    std::istringstream iss(linha);
-                    std::string matr;
-                    iss >> matr;
-                    buscarFuncionario(matr);
+                    buscarFuncionario(linha);
 
                 } catch (const std::exception& e) {
                     std::cout << "Tivemos um erro: " << e.what() << std::endl;
@@ -109,32 +104,55 @@ void Empresa::carregarFuncoes() {
                 try
                 {
                     std::getline(arquivo, linha);
-                    std::istringstream iss(linha);
-                    std::string matr;
-                    iss >> matr;
-                    calcularSalarioFuncionario(matr);
+                    calcularSalarioFuncionario(linha);
                 }
                     catch (const std::exception& e) {
-                    // Tratar exceção genérica
+                    // Tratar exceçao genérica
                     std::cout << "Tivemos um erro: " << e.what() << std::endl;
                 }
-            } else if (nomeFuncao == "calcularSalarioFuncionario()") {
+            } else if (nomeFuncao == "calcularRecisaoFuncionario()") {
                 try
                 {
                     std::getline(arquivo, linha);
-                    std::istringstream iss(linha);
-                    std::string matr;
-                    iss >> matr;
-                    calcularSalarioFuncionario(matr);
+                    std::string matr = linha;
+
+                    util::Data dt;
+                    std::getline(arquivo, linha);
+                    dt.ano = std::stoi(linha);
+                    std::getline(arquivo, linha);
+                    dt.mes = std::stoi(linha);
+                    std::getline(arquivo, linha);
+                    dt.dia = std::stoi(linha);
+
+                    calcularRecisaoFuncionario(matr, dt);
                 }
                     catch (const std::exception& e) {
-                    // Tratar exceção genérica
+                    // Tratar exceçao genérica
+                    std::cout << "Tivemos um erro: " << e.what() << std::endl;
+                }
+
+            } else if (nomeFuncao == "calcularTodasAsRecisoes()") {
+                try
+                {
+                    util::Data dt;
+
+                    std::getline(arquivo, linha);
+                    dt.ano = std::stoi(linha);
+                    std::getline(arquivo, linha);
+                    dt.mes = std::stoi(linha);
+                    std::getline(arquivo, linha);
+                    dt.dia = std::stoi(linha);
+
+                    calcularRecisaoTodosFuncionarios(dt);
+                }
+                    catch (const std::exception& e) {
+                    // Tratar exceçao genérica
                     std::cout << "Tivemos um erro: " << e.what() << std::endl;
                 }
 
             } else {
-                // Função desconhecida, faça o tratamento apropriado
-                std::cout << "Função desconhecida: " << nomeFuncao << std::endl;
+                // Funçao desconhecida, faça o tratamento apropriado
+                std::cout << "Funçao desconhecida: " << nomeFuncao << std::endl;
             }
         }
         arquivo.close();
@@ -179,7 +197,7 @@ void Empresa::carregarAsg() {
     if (arquivo.is_open()) {
 
         while (std::getline(arquivo, linha)) {
-            //quando encontrar uma linha que declare o início dos dados de um ASG:
+            //quando encontrar uma linha que declare o inicio dos dados de um ASG:
             if (linha.find("ASG Nº") != std::string::npos) { 
                 Asg * new_func = new Asg();
                 std::getline(arquivo, linha);
@@ -252,7 +270,7 @@ void Empresa::carregarAsg() {
                     new_func->setNumeroFaltas(std::stoi(linha));
 
                 } catch (const std::exception& e) {
-                    std::cout << "Tivemos um erro na leitura dos dados de funcionário ASG: " << e.what() << std::endl;
+                    std::cout << "Tivemos um erro na leitura dos dados de funcionario ASG: " << e.what() << std::endl;
                 }
 
                 try{
@@ -290,7 +308,7 @@ void Empresa::carregarVendedor() {
     if (arquivo.is_open()) {
 
         while (std::getline(arquivo, linha)) {
-            //quando encontrar uma linha que declare o início dos dados de um Vendedor:
+            //quando encontrar uma linha que declare o inicio dos dados de um Vendedor:
             if (linha.find("VENDEDOR Nº") != std::string::npos) { 
                 Vendedor * new_func = new Vendedor();
                 std::getline(arquivo, linha);
@@ -362,7 +380,7 @@ void Empresa::carregarVendedor() {
                     new_func->setNumeroFaltas(std::stoi(linha));
 
                 } catch (const std::exception& e) {
-                    std::cout << "Tivemos um erro na leitura dos dados de funcionário ASG: " << e.what() << std::endl;
+                    std::cout << "Tivemos um erro na leitura dos dados de funcionario Vendedor: " << e.what() << std::endl;
                 }
 
                 try{
@@ -399,7 +417,7 @@ void Empresa::carregarGerente() {
     if (arquivo.is_open()) {
 
         while (std::getline(arquivo, linha)) {
-            //quando encontrar uma linha que declare o início dos dados de um ASG:
+            //quando encontrar uma linha que declare o inicio dos dados de um ASG:
             if (linha.find("GERENTE Nº") != std::string::npos) { 
                 Gerente * new_func = new Gerente();
                 std::getline(arquivo, linha);
@@ -471,7 +489,7 @@ void Empresa::carregarGerente() {
                     new_func->setNumeroFaltas(std::stoi(linha));
 
                 } catch (const std::exception& e) {
-                    std::cout << "Tivemos um erro na leitura dos dados de funcionário ASG: " << e.what() << std::endl;
+                    std::cout << "Tivemos um erro na leitura dos dados de funcionario Gerente: " << e.what() << std::endl;
                 }
 
                 try{
@@ -507,64 +525,61 @@ void Empresa::carregarDono() {
     std::string linha;
 
     if (arquivo.is_open()) {
+        Pessoa * new_func = new Pessoa();
+        std::getline(arquivo, linha);
+        std::getline(arquivo, linha);
+        try{
+            std::getline(arquivo, linha);
+            new_func->setNome(linha);
 
-        while (std::getline(arquivo, linha)) {
-            Pessoa * new_func = new Pessoa();
-            try{
-                std::getline(arquivo, linha);
-                new_func->setNome(linha);
+            std::getline(arquivo, linha);
+            new_func->setCPF(linha);
 
-                std::getline(arquivo, linha);
-                new_func->setCPF(linha);
+            std::getline(arquivo, linha);
+            new_func->setQtdFilhos(std::stoi(linha));
 
-                std::getline(arquivo, linha);
-                new_func->setQtdFilhos(std::stoi(linha));
+            std::getline(arquivo, linha);
+            new_func->setEstadoCivil(linha);
 
-                std::getline(arquivo, linha);
-                new_func->setEstadoCivil(linha);
+        } catch (const std::exception& e) {
+            std::cout << "Tivemos um erro na leitura da Pessoa: " << e.what() << std::endl;
+        } try{
+            util::Endereco end;
 
-            } catch (const std::exception& e) {
-                std::cout << "Tivemos um erro na leitura da Pessoa: " << e.what() << std::endl;
-            } try{
-                util::Endereco end;
+            std::getline(arquivo, linha);
+            end.cidade = linha;
+            std::getline(arquivo, linha);
+            end.cep = linha;
+            std::getline(arquivo, linha);
+            end.bairro = linha;
+            std::getline(arquivo, linha);
+            end.rua = linha;
+            std::getline(arquivo, linha);
+            end.numero = std::stoi(linha);
 
-                std::getline(arquivo, linha);
-                end.cidade = linha;
-                std::getline(arquivo, linha);
-                end.cep = linha;
-                std::getline(arquivo, linha);
-                end.bairro = linha;
-                std::getline(arquivo, linha);
-                end.rua = linha;
-                std::getline(arquivo, linha);
-                end.numero = std::stoi(linha);
+            new_func->setEnderecoPessoal(end);
 
-                new_func->setEnderecoPessoal(end);
-
-            } catch (const std::exception& e) {
-                std::cout << "Tivemos um erro na leitura do Endereço: " << e.what() << std::endl;
-            }
-
-            try{
-                util::Data d;
-                std::getline(arquivo, linha);
-
-                std::getline(arquivo, linha);
-                d.ano = std::stoi(linha);
-                std::getline(arquivo, linha);
-                d.mes = std::stoi(linha);
-                std::getline(arquivo, linha);
-                d.dia = std::stoi(linha);
-
-                new_func->setDataNascimento(d);
-
-            } catch (const std::exception& e) {
-                std::cout << "Tivemos um erro na leitura da data de Nascimento: " << e.what() << std::endl;
-            }
-
-            setDono(*new_func);
+        } catch (const std::exception& e) {
+            std::cout << "Tivemos um erro na leitura do Endereço: " << e.what() << std::endl;
         }
 
+        try{
+            util::Data d;
+
+            std::getline(arquivo, linha);
+            d.ano = std::stoi(linha);
+            std::getline(arquivo, linha);
+            d.mes = std::stoi(linha);
+            std::getline(arquivo, linha);
+            d.dia = std::stoi(linha);
+
+            new_func->setDataNascimento(d);
+
+        } catch (const std::exception& e) {
+            std::cout << "Tivemos um erro na leitura da data de Nascimento: " << e.what() << std::endl;
+        }
+
+        setDono(*new_func);
         arquivo.close(); // Fecha o arquivo
     } else {
         std::cout << "Erro ao abrir o arquivo." << std::endl;
@@ -573,8 +588,9 @@ void Empresa::carregarDono() {
 
 
 
-// Métodos de impressão
+// Métodos de impressao
 void Empresa::imprimirAsgs() {
+    std::cout<<"imprimindo Asgs.\n";
     for(vector<Asg>::iterator it{asgs.begin()}; it != asgs.end(); it++)
     {
         it->imprimirAsg();
@@ -582,6 +598,7 @@ void Empresa::imprimirAsgs() {
 }
 
 void Empresa::imprimirVendedores() {
+    std::cout<<"imprimindo Vendedores.\n";
     for(vector<Vendedor>::iterator it{vendedores.begin()}; it != vendedores.end(); it++)
     {
         it->imprimirVendedor();
@@ -589,6 +606,7 @@ void Empresa::imprimirVendedores() {
 }
 
 void Empresa::imprimirGerentes() {
+    std::cout<<"imprimindo Gerentes.\n";
     for(vector<Gerente>::iterator it{gerentes.begin()}; it != gerentes.end(); it++)
     {
         it->imprimirGerente();
@@ -596,12 +614,15 @@ void Empresa::imprimirGerentes() {
 }
 
 void Empresa::imprimirDono() {
+    std::cout<<"imprimindo Dono.\n";
     dono.imprimirPessoa();
+    std::cout<<std::endl;
 }
 
 
 // Ações do RH
 void Empresa::buscarFuncionario(std::string matricula) {
+    std::cout<< "Buscando Funcionario:\n";
     for(vector<Gerente>::iterator it{gerentes.begin()}; it != gerentes.end(); it++)
     {
         if(it->getMatricula() == matricula)
@@ -626,7 +647,7 @@ void Empresa::buscarFuncionario(std::string matricula) {
             return;
         }
     }
-    std::cout<< "Funcionário com matrícula " << matricula << "não encontrado no sistema.\n";
+    std::cout<< "Funcionario com matricula " << matricula << "nao encontrado no sistema.\n";
 }
 
 void Empresa::calcularSalarioFuncionario(std::string  matricula) {
@@ -634,7 +655,7 @@ void Empresa::calcularSalarioFuncionario(std::string  matricula) {
     {
         if(it->getMatricula() == matricula)
         {
-            std::cout << "Salário do funcionário: " << it->calcularSalario() << " Reais.\n";
+            std::cout << "Salario do funcionario: " << it->calcularSalario() << " Reais.\n";
             return;
         }
     }
@@ -642,7 +663,7 @@ void Empresa::calcularSalarioFuncionario(std::string  matricula) {
     {
         if(it->getMatricula() == matricula)
         {
-            std::cout << "Salário do funcionário: " << it->calcularSalario() << " Reais.\n";
+            std::cout << "Salario do funcionario: " << it->calcularSalario() << " Reais.\n";
             return;
         }
     }
@@ -650,11 +671,11 @@ void Empresa::calcularSalarioFuncionario(std::string  matricula) {
     {
         if(it->getMatricula() == matricula)
         {
-            std::cout << "Salário do funcionário: " << it->calcularSalario() << " Reais.\n";
+            std::cout << "Salario do funcionario: " << it->calcularSalario() << " Reais.\n";
             return;
         }
     }
-    std::cout<< "Funcionário com matrícula " << matricula << "não encontrado no sistema.\n";
+    std::cout<< "Funcionario com matricula " << matricula << "nao encontrado no sistema.\n";
 }
 
 void Empresa::calcularTodoOsSalarios() {
@@ -664,15 +685,15 @@ void Empresa::calcularTodoOsSalarios() {
     if (arquivo.is_open()) {
         for(vector<Gerente>::iterator it{gerentes.begin()}; it != gerentes.end(); it++)
         {
-            arquivo << "Funcionário: " << it->getNome() << "; Função: Gerente; Salário: "<< it->calcularSalario() << " Reais.\n";
+            arquivo << "Funcionario: " << it->getNome() << "; Funçao: Gerente; Salario: "<< it->calcularSalario() << " Reais.\n";
         }
         for(vector<Vendedor>::iterator it{vendedores.begin()}; it != vendedores.end(); it++)
         {
-            arquivo << "Funcionário: " << it->getNome() << "; Função: Vendedor; Salário: "<< it->calcularSalario() << " Reais.\n";
+            arquivo << "Funcionario: " << it->getNome() << "; Funçao: Vendedor; Salario: "<< it->calcularSalario() << " Reais.\n";
         }
         for(vector<Asg>::iterator it{asgs.begin()}; it != asgs.end(); it++)
         {
-            arquivo << "Funcionário: " << it->getNome() << "; Função: ASG; Salário: "<< it->calcularSalario() << " Reais.\n";
+            arquivo << "Funcionario: " << it->getNome() << "; Funçao: ASG; Salario: "<< it->calcularSalario() << " Reais.\n";
         }
         arquivo.close();
 
@@ -681,12 +702,12 @@ void Empresa::calcularTodoOsSalarios() {
     }
 }
 
-void Empresa::calcularRecisaoFuncionario(std::string matricula) {
+void Empresa::calcularRecisaoFuncionario(std::string matricula, util::Data hoje) {
      for(vector<Gerente>::iterator it{gerentes.begin()}; it != gerentes.end(); it++)
     {
         if(it->getMatricula() == matricula)
         {
-            std::cout << "Recisão do funcionário: " << it->calcularRecisao(today) << " Reais.\n";
+            std::cout << "Recisao do funcionario: " << it->calcularRecisao(hoje) << " Reais.\n";
             return;
         }
     }
@@ -694,7 +715,7 @@ void Empresa::calcularRecisaoFuncionario(std::string matricula) {
     {
         if(it->getMatricula() == matricula)
         {
-            std::cout << "Recisão do funcionário: " << it->calcularRecisao(today) << " Reais.\n";
+            std::cout << "Recisao do funcionario: " << it->calcularRecisao(hoje) << " Reais.\n";
             return;
         }
     }
@@ -702,28 +723,28 @@ void Empresa::calcularRecisaoFuncionario(std::string matricula) {
     {
         if(it->getMatricula() == matricula)
         {
-            std::cout << "Recisão do funcionário: " << it->calcularRecisao(today) << " Reais.\n";
+            std::cout << "Recisao do funcionario: " << it->calcularRecisao(hoje) << " Reais.\n";
             return;
         }
     }
-    std::cout<< "Funcionário com matrícula " << matricula << "não encontrado.\n";
+    std::cout<< "Funcionario com matricula " << matricula << "nao encontrado.\n";
 }
 
-void Empresa::calcularRecisaoTodosFuncionarios() {
+void Empresa::calcularRecisaoTodosFuncionarios(util::Data hoje) {
     std::ofstream arquivo("recisoes.txt");
 
     if (arquivo.is_open()) {
         for(vector<Gerente>::iterator it{gerentes.begin()}; it != gerentes.end(); it++)
         {
-            arquivo << "Funcionário: " << it->getNome() << "; Função: Gerente; Recisão: "<< it->calcularRecisao(today) << " Reais.\n";
+            arquivo << "Funcionario: " << it->getNome() << "; Funçao: Gerente; Recisao: "<< it->calcularRecisao(hoje) << " Reais.\n";
         }
         for(vector<Vendedor>::iterator it{vendedores.begin()}; it != vendedores.end(); it++)
         {
-            arquivo << "Funcionário: " << it->getNome() << "; Função: Vendedor; Recisão: "<< it->calcularRecisao(today) << " Reais.\n";
+            arquivo << "Funcionario: " << it->getNome() << "; Funçao: Vendedor; Recisao: "<< it->calcularRecisao(hoje) << " Reais.\n";
         }
         for(vector<Asg>::iterator it{asgs.begin()}; it != asgs.end(); it++)
         {
-            arquivo << "Funcionário: " << it->getNome() << "; Função: ASG; Recisão: "<< it->calcularRecisao(today) << " Reais.\n";
+            arquivo << "Funcionario: " << it->getNome() << "; Funçao: ASG; Recisao: "<< it->calcularRecisao(hoje) << " Reais.\n";
         }
         arquivo.close();
         

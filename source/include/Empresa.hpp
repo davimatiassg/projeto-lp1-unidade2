@@ -85,13 +85,13 @@ public:
 
     void buscarFuncionario(std::string );
 
-    void calcularSalarioFuncionario(std::string );
+    void calcularSalarioFuncionario(std::string);
 
     void calcularTodoOsSalarios();
 
-    void calcularRecisaoFuncionario(std::string );
+    void calcularRecisaoFuncionario(std::string, util::Data);
 
-    void calcularRecisaoTodosFuncionarios();
+    void calcularRecisaoTodosFuncionarios(util::Data);
 };
 
 #endif

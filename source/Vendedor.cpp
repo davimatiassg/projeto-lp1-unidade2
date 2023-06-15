@@ -1,8 +1,8 @@
 #include <string>
 #include <iostream>
-#include "Pessoa.hpp"
-#include "Funcionario.hpp"
-#include "Vendedor.hpp"
+#include "include\Pessoa.hpp"
+#include "include\Funcionario.hpp"
+#include "include\Vendedor.hpp"
 
 // Implementação da classe concreta Vendedor
 Vendedor::Vendedor() {};
@@ -31,7 +31,7 @@ float Vendedor::calcularRecisao(util::Data desligamento){
     util::Data ingresso = getIngressoEmpresa();
     int in = ingresso.ano*365 + ingresso.mes*30 + ingresso.dia;
     int ds = desligamento.ano*365 + desligamento.mes*30 + desligamento.dia;
-    return getSalario() * (int)((in-ds)/365);
+    return getSalario() * (int)((ds-in)/365);
 }
 
 void Vendedor::imprimirVendedor()
